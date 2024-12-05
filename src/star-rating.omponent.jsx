@@ -1,34 +1,48 @@
 import "./star-rating.css";
 
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 
-const StarRating = () => {
-  const maxRating = 5;
-
+const StarRating = ({ maxRating = 5, onChange = () => {}}) => {
   const [currentRating, setCurrentRating] = useState(0);
-  const [hoverRating, setHoverRating] = useState(0)
+  const [hoverRating, setHoverRating] = useState(0);
 
-  const setCurrentRatingClickHandler = (ratingValue) => {
-    currentRating === ratingValue ? setCurrentRating(0) : setCurrentRating(ratingValue)
-}
+  const setCurrentRatingClickHandler = useCallback(
+    (ratingValue) => {
+      currentRating === ratingValue
+        ? setCurrentRating(0)
+        : setCurrentRating(ratingValue);
+    },
+    [currentRating]
+  );
+
+  useEffect(() => {
+    onChange(currentRating)
+  }, [currentRating, onChange])
+
+
 
   return (
     <div className="star-rating-container">
-      <h1>current rating: {currentRating}</h1>
-      {[...Array(5)].map((_, idx) => {
-        const ratingValue = idx + 1;
+      
+      <div className="box">
+        {[...Array(maxRating)].map((_, idx) => {
+          const ratingValue = idx + 1;
 
-        return (
-          <p key={idx}
-          className={`star ${ratingValue <= (hoverRating || currentRating) ? "active" : " "}`}
-          onClick={() => setCurrentRatingClickHandler(ratingValue)}
-          onMouseEnter={() => setHoverRating(ratingValue)}
-          onMouseLeave={() => setHoverRating(0)}
-          >
-            {ratingValue}
-          </p>
-        );
-      })}
+          return (
+            <p
+              key={idx}
+              className={`star ${
+                ratingValue <= (hoverRating || currentRating) ? "active" : " "
+              }`}
+              onClick={() => setCurrentRatingClickHandler(ratingValue)}
+              onMouseEnter={() => setHoverRating(ratingValue)}
+              onMouseLeave={() => setHoverRating(0)}
+            >
+              &#9733;
+            </p>
+          );
+        })}
+      </div>
     </div>
   );
 };

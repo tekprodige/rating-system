@@ -6,6 +6,11 @@ const StarRating = () => {
   const maxRating = 5;
 
   const [currentRating, setCurrentRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0)
+
+  const setCurrentRatingClickHandler = (ratingValue) => {
+    currentRating === ratingValue ? setCurrentRating(0) : setCurrentRating(ratingValue)
+}
 
   return (
     <div className="star-rating-container">
@@ -15,8 +20,11 @@ const StarRating = () => {
 
         return (
           <p key={idx}
-          className={`star ${ratingValue <= currentRating ? "active" : " "}`}
-          onClick={() => setCurrentRating(ratingValue)}>
+          className={`star ${ratingValue <= (hoverRating || currentRating) ? "active" : " "}`}
+          onClick={() => setCurrentRatingClickHandler(ratingValue)}
+          onMouseEnter={() => setHoverRating(ratingValue)}
+          onMouseLeave={() => setHoverRating(0)}
+          >
             {ratingValue}
           </p>
         );

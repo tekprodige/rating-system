@@ -1,3 +1,10 @@
+# Product Rating System
+
+The purpose of this project is exercise breaking down problems and efficiently solve problems by building a straightforward (yet surprisingly complex) Product Rating component/
+
+Play with Demo [Click Demo](https://main.d180twgn62gvs5.amplifyapp.com/).
+_____________________________________________________________________________________________________________________________
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
